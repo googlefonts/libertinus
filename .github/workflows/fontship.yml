@@ -34,7 +34,7 @@ jobs:
       - name: GoogleFonts - Install Fontspector
         run: sudo apt-get install protobuf-compiler && cargo install --git https://github.com/simoncozens/fontspector
       - name: GoogleFonts - Hotfix with Fontspector
-        run: fontspector --hotfix static/TTF/*.ttf
+        run: fontspector --hotfix ${{ steps.fontship.outputs.DISTDIR }}/static/TTF/*.ttf
       - name: Fontship package
         id: fontship
         uses: theleagueof/fontship@v0
