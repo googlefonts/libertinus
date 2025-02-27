@@ -37,9 +37,11 @@ jobs:
         with:
           args: make dist
       - name: GoogleFonts: Install Fontsprector
-        run: sudo apt-get install protobuf-compiler && cargo install --git https://github.com/simoncozens/fontspector
+        run: |
+          sudo apt-get install protobuf-compiler && cargo install --git https://github.com/simoncozens/fontspector
       - name: GoogleFonts: Hotfix with Fontsprector
-        run: fontspector --hotfix ${{ steps.fontship.outputs.DISTDIR }}/TTF/*.ttf
+        run: |
+          fontspector --hotfix ${{ steps.fontship.outputs.DISTDIR }}/TTF/*.ttf
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
