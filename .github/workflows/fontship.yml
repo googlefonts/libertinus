@@ -39,7 +39,7 @@ jobs:
         with:
           args: make dist
       - name: Mount ZIP file
-        run: sudo apt-get install fuse-zip && mkdir zipmounpoint && fuse-zip -o allow_other ${{ steps.fontship.outputs.DISTDIR }}.zip zipmounpoint && la -la zipmounpoint
+        run: sudo apt-get install fuse-zip && mkdir zipmounpoint && fuse-zip ${{ steps.fontship.outputs.DISTDIR }}.zip zipmounpoint && la -la zipmounpoint
       # - name: GoogleFonts - Hotfix with Fontspector
       #   run: (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true)
       # - name: Unmount ZIP file
