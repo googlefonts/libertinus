@@ -34,7 +34,7 @@ jobs:
       - name: GoogleFonts - Install Fontspector
         run: sudo apt-get install protobuf-compiler && cargo install --git https://github.com/simoncozens/fontspector
       - name: GoogleFonts - Hotfix with Fontspector
-        run: (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true)
+        run: echo ${{ steps.fontship.outputs.DISTDIR }} && ls -la ${{ steps.fontship.outputs.DISTDIR }} && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true)
         # run: ls -la ${{ steps.fontship.outputs.DISTDIR }}
       - name: Fontship package
         id: fontship
