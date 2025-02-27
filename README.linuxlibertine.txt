@@ -34,3 +34,4 @@ The advantage of this font was that g, commas, cedillas... were not overprinted 
 
 Philipp Poll -- gillian at linuxlibertine.org
 
+
