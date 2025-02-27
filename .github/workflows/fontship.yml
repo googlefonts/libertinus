@@ -33,14 +33,17 @@ jobs:
           args: --version; pacman --noconfirm -Sq tex-gyre-fonts; sile documentation/sample.sil
       - name: GoogleFonts - Install Fontspector
         run: sudo apt-get install protobuf-compiler && cargo install --git https://github.com/simoncozens/fontspector
-      - name: GoogleFonts - Hotfix with Fontspector
-        run: echo ${{ steps.fontship.outputs.DISTDIR }} && ls -la ${{ steps.fontship.outputs.DISTDIR }} && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true)
-        # run: ls -la ${{ steps.fontship.outputs.DISTDIR }}
       - name: Fontship package
         id: fontship
         uses: theleagueof/fontship@v0
         with:
           args: make dist
+      - name: Mount ZIP file
+        run: sudo apt-get install fuse-zip && fuse-zip -o allow_other ${{ steps.fontship.outputs.DISTDIR }}.zip ${{ steps.fontship.outputs.DISTDIR }}
+      - name: GoogleFonts - Hotfix with Fontspector
+        run: echo ${{ steps.fontship.outputs.DISTDIR }} && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true)
+      - name: Unmount ZIP file
+        run: sudo umount ${{ steps.fontship.outputs.DISTDIR }}
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
