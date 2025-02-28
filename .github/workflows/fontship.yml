@@ -32,7 +32,7 @@ jobs:
         with:
           args: --version; pacman --noconfirm -Sq tex-gyre-fonts; sile documentation/sample.sil
       - name: GoogleFonts - Install Fontspector
-        run: sudo apt-get install protobuf-compiler && cargo install --git https://github.com/simoncozens/fontspector
+        run: sudo apt-get install protobuf-compiler && cargo install --git https://github.com/simoncozens/fontspector && which fontspector
       - name: Fontship package
         id: fontship
         uses: theleagueof/fontship@v0
