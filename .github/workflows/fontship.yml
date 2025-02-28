@@ -40,15 +40,15 @@ jobs:
           args: make dist
       - name: Mount ZIP file
         run: sudo apt-get install fuse-zip && mkdir zipmounpoint && fuse-zip ${{ steps.fontship.outputs.DISTDIR }}.zip zipmounpoint && ls -la zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}
-      # - name: GoogleFonts - Hotfix with Fontspector
-      #   run: (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix LibertinusSans-Regular.ttf || true)
-      # - name: Unmount ZIP file
-      #   run: sudo umount ${{ steps.fontship.outputs.DISTDIR }}
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: ${{ steps.fontship.outputs.DISTDIR }}
-      #     path: ${{ steps.fontship.outputs.DISTDIR }}.zip
+      - name: GoogleFonts - Hotfix with Fontspector
+        run: (sudo fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true)
+      - name: Unmount ZIP file
+        run: sudo umount ${{ steps.fontship.outputs.DISTDIR }}
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.fontship.outputs.DISTDIR }}
+          path: ${{ steps.fontship.outputs.DISTDIR }}.zip
       # - name: Release
       #   if: startsWith(github.ref, 'refs/tags/v')
       #   uses: softprops/action-gh-release@v1
