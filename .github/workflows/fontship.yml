@@ -39,7 +39,7 @@ jobs:
         with:
           args: make dist
       - name: Mount ZIP file
-        run: sudo apt-get install fuse-zip && mkdir zipmounpoint && fuse-zip ${{ steps.fontship.outputs.DISTDIR }}.zip zipmounpoint && ls -la zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static
+        run: sudo apt-get install fuse-zip && mkdir zipmounpoint && fuse-zip ${{ steps.fontship.outputs.DISTDIR }}.zip zipmounpoint && ls -la zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF
       - name: GoogleFonts - Hotfix with Fontspector
         run: (fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true) && (fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true) && (fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true) && (fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true)
       - name: Unmount ZIP file
