@@ -32,18 +32,18 @@ jobs:
         with:
           args: --version; pacman --noconfirm -Sq tex-gyre-fonts; sile documentation/sample.sil
       - name: GoogleFonts - Install Fontspector
-        run: sudo apt-get install protobuf-compiler && sudo cargo install --git https://github.com/simoncozens/fontspector
+        run: sudo apt-get install protobuf-compiler && cargo install --git https://github.com/simoncozens/fontspector
       - name: Fontship package
         id: fontship
         uses: theleagueof/fontship@v0
         with:
           args: make dist
       - name: Mount ZIP file
-        run: sudo apt-get install fuse-zip && mkdir zipmounpoint && sudo fuse-zip ${{ steps.fontship.outputs.DISTDIR }}.zip zipmounpoint && ls -la zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}
+        run: sudo apt-get install fuse-zip && mkdir zipmounpoint && fuse-zip ${{ steps.fontship.outputs.DISTDIR }}.zip zipmounpoint && ls -la zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}
       - name: GoogleFonts - Hotfix with Fontspector
-        run: (sudo fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true) && (sudo fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true)
+        run: (fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true) && (fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true) && (fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true) && (fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/LibertinusSans-Regular.ttf || true)
       - name: Unmount ZIP file
-        run: sudo umount zipmounpoint
+        run: umount zipmounpoint
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
