@@ -33,17 +33,19 @@ jobs:
           args: --version; pacman --noconfirm -Sq tex-gyre-fonts; sile documentation/sample.sil
       - name: GoogleFonts - Install Fontspector
         run: sudo apt-get install protobuf-compiler && cargo install --git https://github.com/simoncozens/fontspector && which fontspector
+      - name: GoogleFonts - Hotfix with Fontspector
+        run: md5sum LibertinusSans-Regular.ttf && (sudo /home/runner/.cargo/bin/fontspector --hotfix LibertinusSans-Regular.ttf || true) && md5sum LibertinusSans-Regular.ttf
       - name: Fontship package
         id: fontship
         uses: theleagueof/fontship@v0
         with:
           args: make dist
-      - name: Mount ZIP file
-        run: sudo apt-get install fuse-zip && mkdir zipmounpoint && fuse-zip ${{ steps.fontship.outputs.DISTDIR }}.zip zipmounpoint && ls -la zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF
-      - name: GoogleFonts - Hotfix with Fontspector
-        run: sudo pwd && pwd && md5sum zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF/LibertinusSans-Regular.ttf && (sudo /home/runner/.cargo/bin/fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF/LibertinusSans-Regular.ttf || true) && (sudo /home/runner/.cargo/bin/fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF/LibertinusSans-Regular.ttf || true) && (sudo /home/runner/.cargo/bin/fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF/LibertinusSans-Regular.ttf || true) && (sudo /home/runner/.cargo/bin/fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF/LibertinusSans-Regular.ttf || true) && md5sum zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF/LibertinusSans-Regular.ttf
-      - name: Unmount ZIP file
-        run: umount zipmounpoint
+      # - name: Mount ZIP file
+      #   run: sudo apt-get install fuse-zip && mkdir zipmounpoint && fuse-zip ${{ steps.fontship.outputs.DISTDIR }}.zip zipmounpoint && ls -la zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF
+      # - name: GoogleFonts - Hotfix with Fontspector
+      #   run: sudo pwd && pwd && md5sum zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF/LibertinusSans-Regular.ttf && (sudo /home/runner/.cargo/bin/fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF/LibertinusSans-Regular.ttf || true) && (sudo /home/runner/.cargo/bin/fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF/LibertinusSans-Regular.ttf || true) && (sudo /home/runner/.cargo/bin/fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF/LibertinusSans-Regular.ttf || true) && (sudo /home/runner/.cargo/bin/fontspector --hotfix zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF/LibertinusSans-Regular.ttf || true) && md5sum zipmounpoint/${{ steps.fontship.outputs.DISTDIR }}/static/TTF/LibertinusSans-Regular.ttf
+      # - name: Unmount ZIP file
+      #   run: umount zipmounpoint
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
