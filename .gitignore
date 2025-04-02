@@ -1,9 +1,13 @@
+release.json
+zip_urls.txt
+upstream-release
+
 *~
 venv
 venv-test
 build.stamp
 proof
-fonts
+# fonts
 node_modules
 package-lock.json
 package.json
