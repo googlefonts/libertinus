@@ -10,6 +10,9 @@ echo $TAG_NAME
 VERSION=${TAG_NAME//v/}
 jq -r '.assets[] | select(.name | endswith(".zip")) | .browser_download_url' release.json > zip_urls.txt
 
+# Store version for future comparison as part of automatic PRs
+echo $VERSION > version.txt
+
 # Download zip file
 mkdir -p upstream-release
 while IFS= read -r url; do
