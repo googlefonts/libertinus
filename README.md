@@ -1,4 +1,4 @@
-# Linux Libertinus
+# Libertinus
 
 This repository is not a fork, but a Google-Fonts-centered working repository, of the popular [https://github.com/alerque/libertinus](https://github.com/alerque/libertinus) font family.
 
